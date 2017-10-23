@@ -18,9 +18,6 @@ export class Basics extends React.Component {
       return <li key={"demoJSXList_" + index}>{value}</li>;
     });
 
-    // for the ternary example
-    const someBools = [true, false];
-
     // for the if statement example
     let message;
     if ("A truthy thing") {
@@ -38,7 +35,7 @@ export class Basics extends React.Component {
         <p>Demonstrating JS statements in JSX. <b>2 +3 = {2 + 3}</b>.</p>
         <p>Pretty much any single statement can go here. Take some PI with Math.PI: {Math.PI.toFixed(10)}</p>
         <p>Could always render some images using variables too:</p>
-        <img src={kittyImage} title={randomText} />
+        <img src={kittyImage} alt={randomText} />
 
         <h2>Lists and keys</h2>
         <p>Rendering a ul with an array.</p>
@@ -56,7 +53,7 @@ export class Basics extends React.Component {
 
         <h2>Basic Event Handler</h2>
         <p>Click on the burger to turn it into a hotdog</p>
-        <img src={burgerImage} onClick={this.turnImageIntoHotdog} />
+        <img src={burgerImage} alt={randomText} onClick={this.turnImageIntoHotdog} />
       </div>
     );
   }
