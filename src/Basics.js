@@ -7,6 +7,7 @@ export class Basics extends React.Component {
     e.target.setAttribute('src', "https://i.imgur.com/zkPS0Sn.png");
   }
 
+  // for the using this.function event handler
   someOtherHandler() {
     alert("This handler was handled");
   }
@@ -75,12 +76,16 @@ export class Basics extends React.Component {
           <li>Child One</li>
           <li>Child Two</li>
         </ListPropsChildren>
+
+        <h2>Using State</h2>
+        <SomeStateMagic />
       </div>
     );
   }
 }
 
 class PassMeAHandlerProp extends React.Component {
+  // on click it executes the function passed via onClick prop
   render() {
     return (
       <p onClick={this.props.onClick} >
@@ -91,6 +96,7 @@ class PassMeAHandlerProp extends React.Component {
 }
 
 class PassMeProps extends React.Component {
+  // takes the props 'name' and 'text'
   render() {
     return (
       <p>
@@ -100,6 +106,7 @@ class PassMeProps extends React.Component {
     );
   }
 }
+// The goofy way to set defaultProps in JS
 PassMeProps.defaultProps = {
   name: "Default Name",
   text: "Some default text. Maybe some Lorem Ipsum stuff.",
@@ -107,10 +114,57 @@ PassMeProps.defaultProps = {
 
 class ListPropsChildren extends React.Component {
   render() {
+    // renders all elements inside of the Components tags within ul
     return (
       <ul>
         {this.props.children}
       </ul>
+    );
+  }
+}
+
+class SomeStateMagic extends React.Component {
+  constructor(props) {
+    // remember to give the super it's props as to not break stuff
+    super(props);
+    // setting the initial state
+    this.state = {
+      someText: "Some text that is stored in this.state",
+      someBool: true,
+    };
+    // remember this needs to be here because it uses "this"
+    // https://reactjs.org/docs/handling-events.html
+    this.toggleStateText = this.toggleStateText.bind(this);
+  }
+
+  toggleStateText() {
+    // switch from true to false and vice versa
+    const newBool = this.state.someBool ? false : true;
+
+    /*
+     * Sure you could just change an attribute,
+     * but setState calls render()
+     */
+    if (newBool) {
+      this.setState({
+        someText: "You toggled, now this.state.someText is this text",
+        someBool: newBool,
+      });
+    } else {
+      this.setState({
+        someText: "You toggled again... you see where this is going?",
+        someBool: newBool,
+      });
+    }
+  }
+
+  // click the component to change the state
+  render() {
+    return (
+      <div onClick={this.toggleStateText}>
+        <p>Click anywhere in here to change state<br />
+        {this.state.someText}</p>
+      </div>
     );
   }
 }
